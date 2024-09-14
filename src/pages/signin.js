@@ -1,202 +1,82 @@
-// src/SignIn.js
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// SignIn.js
+import {
+  FormLabel,
+  FormControl,
+  Input,
+  Button,
+  Box,
+  VStack,
+  Text,
+  InputGroup,
+  InputRightElement,
+  IconButton,
+  useColorMode
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { FaLock, FaEnvelope, FaArrowLeft } from "react-icons/fa";
+import axios from "axios";
+import { Link as RouterLink } from 'react-router-dom';
 
-// Inline CSS styles for the component
-const styles = {
-  pageContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#f3f4f6',
-  },
-  container: {
-    width: '420px',
-    padding: '30px',
-    borderRadius: '12px',
-    backgroundColor: '#ffffff',
-    boxShadow: '0 6px 12px rgba(0, 0, 0, 0.1)',
-    border: '1px solid #e0e0e0',
-    background: 'linear-gradient(135deg, #f3f4f6, #ffffff)',
-  },
-  header: {
-    textAlign: 'center',
-    marginBottom: '20px',
-    fontSize: '28px',
-    color: '#333',
-    fontWeight: 'bold',
-    background: 'linear-gradient(135deg, #ff7e5f, #feb47b)',
-    WebkitBackgroundClip: 'text',
-    color: 'transparent',
-    fontFamily: 'Arial, sans-serif',
-  },
-  formGroup: {
-    marginBottom: '20px',
-  },
-  label: {
-    display: 'block',
-    marginBottom: '8px',
-    fontSize: '14px',
-    color: '#555',
-    fontWeight: '600',
-  },
-  input: {
-    width: '100%',
-    padding: '14px',
-    border: '1px solid #ccc',
-    borderRadius: '8px',
-    boxSizing: 'border-box',
-    fontSize: '14px',
-    color: '#333',
-    transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
-  },
-  inputFocus: {
-    borderColor: '#007bff',
-    boxShadow: '0 0 0 3px rgba(38, 143, 255, 0.2)',
-  },
-  button: {
-    width: '100%',
-    padding: '14px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    transition: 'background-color 0.3s ease, transform 0.3s ease',
-  },
-  buttonHover: {
-    backgroundColor: '#0056b3',
-    transform: 'scale(1.05)',
-  },
-  error: {
-    color: '#ff4d4d',
-    fontSize: '12px',
-    marginTop: '5px',
-  },
-  forgotPassword: {
-    textAlign: 'center',
-    color: '#007bff',
-    cursor: 'pointer',
-    marginTop: '15px',
-    fontSize: '14px',
-    fontWeight: '500',
-    textDecoration: 'underline',
-  },
-  signUp: {
-    textAlign: 'center',
-    color: '#007bff',
-    cursor: 'pointer',
-    marginTop: '15px',
-    fontSize: '14px',
-    fontWeight: '500',
-    textDecoration: 'underline',
-  },
-};
+const api = "http://localhost:5000/api/auth"; // Your backend URL
 
-const SignIn = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [isEmailFocused, setEmailFocused] = useState(false);
-  const [isPasswordFocused, setPasswordFocused] = useState(false);
-  const [isButtonHovered, setButtonHovered] = useState(false);
+export const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { colorMode } = useColorMode();
 
-  const navigate = useNavigate();
-
-  const handleSignIn = (e) => {
-    e.preventDefault();
-
-    if (!email) {
-      setEmailError('Email is required');
-    } else {
-      setEmailError('');
-    }
-
-    if (!password) {
-      setPasswordError('Password is required');
-    } else {
-      setPasswordError('');
-    }
-
-    if (email && password) {
-      // Add sign-in logic here
-      // On successful sign-in, redirect to Home page
-      navigate('/home');
-    }
-  };
-
-  const handleForgotPassword = () => {
-    alert('Forgot Password clicked');
-  };
-
-  const handleSignUp = () => {
-    alert('Sign Up clicked');
+  const handleSignIn = async () => {
+      try {
+          const response = await axios.post(`${api}/signin`, { email, password });
+          alert(response.data.message || "Sign-In Successful");
+      } catch (error) {
+          console.error("Error during sign-in:", error);
+          alert("Error during sign-in");
+      }
   };
 
   return (
-    <div style={styles.pageContainer}>
-      <div style={styles.container}>
-        <h2 style={styles.header}>Sign In</h2>
-        <form onSubmit={handleSignIn}>
-          <div style={styles.formGroup}>
-            <label htmlFor="email" style={styles.label}>Email ID</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              style={{
-                ...styles.input,
-                ...(isEmailFocused && styles.inputFocus),
-              }}
-              onFocus={() => setEmailFocused(true)}
-              onBlur={() => setEmailFocused(false)}
-            />
-            {emailError && <p style={styles.error}>{emailError}</p>}
-          </div>
-          <div style={styles.formGroup}>
-            <label htmlFor="password" style={styles.label}>Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              style={{
-                ...styles.input,
-                ...(isPasswordFocused && styles.inputFocus),
-              }}
-              onFocus={() => setPasswordFocused(true)}
-              onBlur={() => setPasswordFocused(false)}
-            />
-            {passwordError && <p style={styles.error}>{passwordError}</p>}
-          </div>
-          <button
-            type="submit"
-            style={{
-              ...styles.button,
-              ...(isButtonHovered && styles.buttonHover),
-            }}
-            onMouseOver={() => setButtonHovered(true)}
-            onMouseOut={() => setButtonHovered(false)}
-          >
-            Sign In
-          </button>
-        </form>
-        <p style={styles.forgotPassword} onClick={handleForgotPassword}>
-          Forgot Password?
-        </p>
-        <p style={styles.signUp} onClick={handleSignUp}>
-          Don't have an account? Sign Up
-        </p>
-      </div>
-    </div>
+      <Box p={4} maxW="md" mx="auto" bg={colorMode === "dark" ? "gray.800" : "gray.100"} borderRadius="md" boxShadow="lg">
+          <IconButton
+              aria-label="Go back"
+              icon={<FaArrowLeft />}
+              as={RouterLink}
+              to="/"
+              mb={6}
+              colorScheme="gray"
+              variant="outline"
+          />
+          <VStack spacing={6} align="stretch">
+              <Text fontSize="2xl" fontWeight="bold" textAlign="center">
+                  Sign In
+              </Text>
+              <FormControl id="email">
+                  <FormLabel>Email</FormLabel>
+                  <InputGroup>
+                      <InputRightElement children={<FaEnvelope />} />
+                      <Input
+                          type="email"
+                          placeholder="Enter your email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                      />
+                  </InputGroup>
+              </FormControl>
+              <FormControl id="password">
+                  <FormLabel>Password</FormLabel>
+                  <InputGroup>
+                      <InputRightElement children={<FaLock />} />
+                      <Input
+                          type="password"
+                          placeholder="Enter your password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                      />
+                  </InputGroup>
+              </FormControl>
+              <Button onClick={handleSignIn} colorScheme="teal">
+                  Sign In
+              </Button>
+          </VStack>
+      </Box>
   );
 };
-
-export default SignIn;
