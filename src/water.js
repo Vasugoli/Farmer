@@ -1,6 +1,6 @@
 // src/Water.js
 import React from 'react';
-import './water.css' // Import the CSS file
+//import './water.css' // Import the CSS file
 import { Box, Heading, Text, Image, Grid, GridItem, Flex, Stack,VStack, Button } from '@chakra-ui/react';
 
 const Water = () => {

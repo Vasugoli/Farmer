@@ -12,7 +12,7 @@ import SoilTestForm from './pages/soildata';
 import LoginPage from './pages/signin';
 import Water from './water';
 import DataOpti from './pages/dataopti';
-import SignupPage from './pages/sign up';
+//import SignupPage from './pages/sign up';
 //import MachineLearningAnalysis from './pages/analysis';
 import Income from './pages/income';
 function App() {
@@ -25,7 +25,7 @@ function App() {
         <Route path="/machine-learning-analysis" element={<SoilTestForm />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/crop-yield" element={<Income />} />
-        <Route path="/signup" element={<SignupPage />} />
+       
         <Route path="/sustainable-agriculture" element={<MainPage />} />
         <Route path="/idea1" element={<Idea1 />} />
         <Route path="/idea2" element={<Idea2 />} />
