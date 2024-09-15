@@ -8,40 +8,41 @@ import {
   Text,
   InputGroup,
   InputRightElement,
-  useColorMode,
-  Link,
   Center,
+  useColorMode
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaLock, FaEnvelope } from "react-icons/fa";
 import axios from "axios";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // Import translation hook
 
-const api = "http://localhost:5000/api/auth"; // Replace with your actual backend URL
+const api = "http://localhost:5000/api/auth"; 
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false); // New state for loading
+  const [loading, setLoading] = useState(false); 
   const { colorMode } = useColorMode();
   const navigate = useNavigate();
+  const { t } = useTranslation(); // Initialize translation hook
 
   const handleSignIn = async () => {
-    setLoading(true); // Show loading state
+    setLoading(true);
     try {
       const response = await axios.post(`${api}/signin`, { email, password });
       if (response.data.token) {
-        localStorage.setItem("token", response.data.token); // Save JWT token to localStorage
-        alert("Sign-In Successful");
-        navigate("/dashboard"); // Redirect after successful sign-in
+        localStorage.setItem("token", response.data.token); 
+        alert(t("signIn.success"));
+        navigate("/home");
       } else {
-        alert(response.data.message || "Error during sign-in");
+        alert(response.data.message || t("signIn.error"));
       }
     } catch (error) {
       console.error("Error during sign-in:", error);
-      alert("Error during sign-in. Please check your credentials.");
+      alert(t("signIn.error"));
     } finally {
-      setLoading(false); // Hide loading state
+      setLoading(false);
     }
   };
 
@@ -58,17 +59,17 @@ export const SignIn = () => {
       >
         <VStack spacing={6} align="stretch">
           <Text fontSize="2xl" fontWeight="bold" textAlign="center">
-            Sign In
+            {t("signIn.title")}
           </Text>
 
           {/* Email Input */}
           <FormControl id="email">
-            <FormLabel>Email</FormLabel>
+            <FormLabel>{t("signIn.email")}</FormLabel>
             <InputGroup>
               <InputRightElement children={<FaEnvelope />} />
               <Input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t("signIn.email")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -77,12 +78,12 @@ export const SignIn = () => {
 
           {/* Password Input */}
           <FormControl id="password">
-            <FormLabel>Password</FormLabel>
+            <FormLabel>{t("signIn.password")}</FormLabel>
             <InputGroup>
               <InputRightElement children={<FaLock />} />
               <Input
                 type="password"
-                placeholder="Enter your password"
+                placeholder={t("signIn.password")}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -91,17 +92,17 @@ export const SignIn = () => {
 
           {/* Sign In Button */}
           <Button onClick={handleSignIn} colorScheme="teal" isLoading={loading}>
-            Sign In
+            {t("signIn.submit")}
           </Button>
 
-          {/* Links for Forgot Password and Sign Up */}
+          {/* Links */}
           <VStack spacing={4} align="center">
-            <Link as={RouterLink} to="/forgot" color="teal.500">
-              Forgot Password?
-            </Link>
-            <Link as={RouterLink} to="/sign-up" color="teal.500">
-              Don't have an account? Sign Up
-            </Link>
+            <RouterLink to="/forgot">
+              {t("signIn.forgotPassword")}
+            </RouterLink>
+            <RouterLink to="/sign-up">
+              {t("signIn.signUpPrompt")}
+            </RouterLink>
           </VStack>
         </VStack>
       </Box>

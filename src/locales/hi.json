@@ -1,0 +1,20 @@
+{
+    "signIn": {
+      "title": "साइन इन करें",
+      "email": "ईमेल",
+      "password": "पासवर्ड",
+      "submit": "साइन इन करें",
+      "forgotPassword": "पासवर्ड भूल गए?",
+      "signUpPrompt": "कोई खाता नहीं है? साइन अप करें"
+    },
+    "signUp": {
+      "title": "साइन अप करें",
+      "name": "नाम",
+      "email": "ईमेल",
+      "password": "पासवर्ड",
+      "reenterPassword": "पासवर्ड फिर से दर्ज करें",
+      "submit": "साइन अप करें",
+      "signInPrompt": "पहले से ही खाता है? साइन इन करें"
+    }
+  }
+  

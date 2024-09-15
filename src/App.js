@@ -9,7 +9,7 @@ import Idea2 from './pages/substianble/idea2';
 import Idea3 from './pages/substianble/idea3';
 import SoilTestForm from './pages/soildata';
 import LandingPage from './pages/landing/landing';
-
+import LanguageSwitcher from './Languageswitcher';
 import  { SignIn } from './pages/signin';
 import Water from './water';
 import DataOpti from './pages/dataopti';
@@ -32,6 +32,7 @@ function App() {
         <Route path="/crop-yield" element={<Income />} />
         <Route path="/sign-up" element={<SignUp />} />
         {/* <Route path="/ferti" element={<FertilizerRecommendation />} /> */}
+        <Route path="/language" element={<LanguageSwitcher />} />
         
         <Route path="/sustainable-agriculture" element={<MainPage />} />
         <Route path="/idea1" element={<Idea1 />} />
