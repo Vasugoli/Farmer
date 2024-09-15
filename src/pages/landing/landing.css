@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* src/landing.css */
 .landing-container {
     font-family: Arial, sans-serif;
@@ -152,3 +153,76 @@
     }
   }
   
+=======
+/* landing.css */
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #319795; /* Chakra UI Teal color */
+  color: #fff;
+}
+
+header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+header .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+header .nav-links li {
+  display: inline;
+}
+
+header .nav-links a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.hero {
+  background-color: #2c5282; /* Darker Teal */
+  color: #fff;
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+}
+
+.hero p {
+  font-size: 1.25rem;
+}
+
+.features-grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  background: #fff;
+  border-radius: 0.375rem; /* Same as Chakra UI */
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+footer {
+  background-color: #319795; /* Chakra UI Teal color */
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+>>>>>>> backend

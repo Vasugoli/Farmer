@@ -4,11 +4,21 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react';
+<<<<<<< HEAD
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ChakraProvider> 
+=======
+import './i18n';
+import LanguageSwitcher from './Languageswitcher';
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>  
+    <ChakraProvider> 
+      <LanguageSwitcher />
+>>>>>>> backend
       <App />
     </ChakraProvider>
    
