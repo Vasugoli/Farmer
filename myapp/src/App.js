@@ -8,24 +8,29 @@ import Idea1 from './pages/substianble/idea1';
 import Idea2 from './pages/substianble/idea2';
 import Idea3 from './pages/substianble/idea3';
 import SoilTestForm from './pages/soildata';
+import LandingPage from './pages/landing/landing';
 
-import LoginPage from './pages/signin';
+import  { SignIn } from './pages/signin';
 import Water from './water';
 import DataOpti from './pages/dataopti';
-//import SignupPage from './pages/sign up';
+import { SignUp } from './pages/signup';
 //import MachineLearningAnalysis from './pages/analysis';
+import { ForgotPassword } from './pages/updatepassword/forgot';
 import Income from './pages/income';
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<SignIn />} />
         {/* <Route path="/soilhealth" element={<SoilDataForm />} /> */}
         { <Route path="/waterconservation" element={<Water />} />}
         <Route path="/machine-learning-analysis" element={<SoilTestForm />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/forgot" element={<ForgotPassword />} />
         <Route path="/crop-yield" element={<Income />} />
-       
+        <Route path="/sign-up" element={<SignUp />} />
+        
         <Route path="/sustainable-agriculture" element={<MainPage />} />
         <Route path="/idea1" element={<Idea1 />} />
         <Route path="/idea2" element={<Idea2 />} />
