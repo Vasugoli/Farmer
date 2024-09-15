@@ -15,7 +15,8 @@ import Water from './water';
 import DataOpti from './pages/dataopti';
 import { SignUp } from './pages/signup';
 //import MachineLearningAnalysis from './pages/analysis';
-import { ForgotPassword } from './pages/updatepassword/forgot';
+import ForgotPassword from './pages/updatepassword/forgot';
+//import FertilizerRecommendation from './pages/recomm';
 import Income from './pages/income';
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/forgot" element={<ForgotPassword />} />
         <Route path="/crop-yield" element={<Income />} />
         <Route path="/sign-up" element={<SignUp />} />
+        {/* <Route path="/ferti" element={<FertilizerRecommendation />} /> */}
         
         <Route path="/sustainable-agriculture" element={<MainPage />} />
         <Route path="/idea1" element={<Idea1 />} />
