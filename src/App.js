@@ -22,12 +22,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SignIn />} />
+        <Route path="/signin" element={<SignIn />} />
         {/* <Route path="/soilhealth" element={<SoilDataForm />} /> */}
         { <Route path="/waterconservation" element={<Water />} />}
         <Route path="/machine-learning-analysis" element={<SoilTestForm />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/forgot" element={<ForgotPassword />} />
         <Route path="/crop-yield" element={<Income />} />
         <Route path="/sign-up" element={<SignUp />} />

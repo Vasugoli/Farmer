@@ -1,34 +1,31 @@
 import {
-    FormLabel,
-    FormControl,
-    Input,
-    Button,
-    Box,
-    VStack,
-    Text,
-    InputGroup,
-    InputRightElement,
-    useColorMode,
-    Center,
-    IconButton,
-  } from "@chakra-ui/react";
-  import { useState } from "react";
-  import { FaUser, FaLock, FaEnvelope, FaArrowLeft } from "react-icons/fa";
-  import axios from "axios";
-  import { Link as RouterLink, useNavigate } from 'react-router-dom';
-  
-  const api = "http://localhost:5000/api/auth"; // Replace with your actual backend URL
-  
-  export const SignUp = () => {
-    const [email, setEmail] = useState("");
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
-    const [reenterPassword, setReenterPassword] = useState("");
-    const [loading, setLoading] = useState(false); // New state for loading
-    const { colorMode } = useColorMode();
-    const navigate = useNavigate();
-  
-    const handleSignUp = async () => {
+  FormLabel,
+  FormControl,
+  Input,
+  Button,
+  Box,
+  VStack,
+  Text,
+  InputGroup,
+  InputRightElement,
+  IconButton,
+  useColorMode
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { FaUser, FaLock, FaEnvelope, FaArrowLeft } from "react-icons/fa";
+import axios from "axios";
+import { Link as RouterLink } from 'react-router-dom';
+
+const api = "http://localhost:5000/api/auth"; // Your backend URL
+
+export const SignUp = () => {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [reenterPassword, setReenterPassword] = useState("");
+  const { colorMode } = useColorMode();
+
+  const handleSignUp = async () => {
       if (password !== reenterPassword) {
         alert("Passwords do not match");
         return;
@@ -36,13 +33,8 @@ import {
   
       setLoading(true); // Show loading state
       try {
-        const response = await axios.post(`${api}/signup`, {
-          email,
-          name,
-          password,
-        });
-        alert(response.data.message || "Sign-Up Successful");
-        navigate("/signin"); // Redirect after successful sign-up
+          const response = await axios.post(`${api}/signup`, { email, name, password, reenterPassword });
+          alert(response.data.message || "Sign-Up Successful");
       } catch (error) {
         console.error("Error during sign-up:", error);
         alert("Error during sign-up. Please try again.");
@@ -63,13 +55,13 @@ import {
           boxShadow="lg"
         >
           <IconButton
-            aria-label="Go back"
-            icon={<FaArrowLeft />}
-            as={RouterLink}
-            to="/"
-            mb={6}
-            colorScheme="gray"
-            variant="outline"
+              aria-label="Go back"
+              icon={<FaArrowLeft />}
+              as={RouterLink}
+              to="/"
+              mb={6}
+              colorScheme="gray"
+              variant="outline"
           />
   
           <VStack spacing={6} align="stretch">

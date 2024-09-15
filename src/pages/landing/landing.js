@@ -8,12 +8,12 @@ const LandingPage = () => {
 
   // Function to handle navigation to the login page
   const handleLearnMoreClick = () => {
-    navigate('/l');// Redirect to the login page
+    navigate('/signin');// Redirect to the login page
   };
 
   // Function to handle login/sign-up button click
   const handleLoginClick = () => {
-    navigate('/'); // Redirect to the login page
+    navigate('/signin'); // Redirect to the login page
   };
 
   return (
