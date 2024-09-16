@@ -9,27 +9,30 @@ import Idea2 from './pages/substianble/idea2';
 import Idea3 from './pages/substianble/idea3';
 import SoilTestForm from './pages/soildata';
 import LandingPage from './pages/landing/landing';
-
+import LanguageSwitcher from './Languageswitcher';
 import  { SignIn } from './pages/signin';
 import Water from './water';
 import DataOpti from './pages/dataopti';
 import { SignUp } from './pages/signup';
 //import MachineLearningAnalysis from './pages/analysis';
-import { ForgotPassword } from './pages/updatepassword/forgot';
+import ForgotPassword from './pages/updatepassword/forgot';
+//import FertilizerRecommendation from './pages/recomm';
 import Income from './pages/income';
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SignIn />} />
+        <Route path="/signin" element={<SignIn />} />
         {/* <Route path="/soilhealth" element={<SoilDataForm />} /> */}
         { <Route path="/waterconservation" element={<Water />} />}
         <Route path="/machine-learning-analysis" element={<SoilTestForm />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/forgot" element={<ForgotPassword />} />
         <Route path="/crop-yield" element={<Income />} />
         <Route path="/sign-up" element={<SignUp />} />
+        {/* <Route path="/ferti" element={<FertilizerRecommendation />} /> */}
+        <Route path="/language" element={<LanguageSwitcher />} />
         
         <Route path="/sustainable-agriculture" element={<MainPage />} />
         <Route path="/idea1" element={<Idea1 />} />
