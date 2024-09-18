@@ -3,7 +3,6 @@ import {
   Box, Button, Input, VStack, FormControl, FormLabel, Select, Text, Heading, Alert, AlertIcon,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
 
 // Animation for background elements
 const MotionBox = motion(Box);
@@ -19,30 +18,19 @@ const SoilTestForm = () => {
   const [humidity, setHumidity] = useState('');
   const [moisture, setMoisture] = useState('');
   const [predictedFertilizer, setPredictedFertilizer] = useState('');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handlePrediction = async () => {
-    setLoading(true);
-    setError('');
-    setPredictedFertilizer('');
-    try {
-      const response = await axios.post('http://localhost:5001/api/predict', {
-        Nitrogen: nitrogen,
-        Phosphorous: phosphorus,
-        Potassium: potassium,
-        'Soil Type': soilType,
-        'Crop Type': cropType,
-        Temperature: temperature,
-        Humidity: humidity,
-        Moisture: moisture,
-      });
-      setPredictedFertilizer(response.data.predicted_fertilizer);
-    } catch (err) {
-      console.error(err);
-      setError('Error during prediction!');
+  const handlePrediction = () => {
+    // Simple logic to select a fertilizer based on some conditions
+    if (nitrogen < 20 && phosphorus < 20) {
+      setPredictedFertilizer('NPK 17-17-17');
+    } else if (nitrogen >= 20 && phosphorus >= 20 && potassium === '') {
+      setPredictedFertilizer('NPK 28-28-0');
+    } else if (potassium > 15) {
+      setPredictedFertilizer('NPK 12-32-16');
+    } else {
+      setPredictedFertilizer('DAP 18-46-0');
     }
-    setLoading(false);
   };
 
   return (
@@ -64,7 +52,7 @@ const SoilTestForm = () => {
         backgroundColor="rgba(255, 255, 255, 0.2)"
         borderRadius="50%"
         animate={{ y: [0, 50, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       />
       <MotionBox
         position="absolute"
@@ -74,7 +62,7 @@ const SoilTestForm = () => {
         backgroundColor="rgba(255, 255, 255, 0.2)"
         borderRadius="50%"
         animate={{ y: [0, -50, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       {/* Form Container */}
@@ -106,7 +94,7 @@ const SoilTestForm = () => {
 
           {/* Phosphorous Input */}
           <FormControl>
-            <FormLabel>Phosphorous</FormLabel>
+            <FormLabel>Phosphorus</FormLabel>
             <Input
               value={phosphorus}
               onChange={(e) => setPhosphorus(e.target.value)}
@@ -132,6 +120,50 @@ const SoilTestForm = () => {
               borderRadius="md"
               size="lg"
             />
+          </FormControl>
+
+          {/* Soil Type Input */}
+          <FormControl>
+            <FormLabel>Soil Type</FormLabel>
+            <Select
+              placeholder="Select Soil Type"
+              onChange={(e) => setSoilType(e.target.value)}
+              focusBorderColor="green.400"
+              borderColor="gray.300"
+              _hover={{ borderColor: 'green.300' }}
+              borderRadius="md"
+              size="lg"
+            >
+              <option value="Sandy">Sandy</option>
+              <option value="Clayey">Clayey</option>
+              <option value="Loamy">Loamy</option>
+              <option value="Silty">Silty</option>
+              <option value="Peaty">Peaty</option>
+              <option value="Saline">Saline</option>
+            </Select>
+          </FormControl>
+
+          {/* Crop Type Input */}
+          <FormControl>
+            <FormLabel>Crop Type</FormLabel>
+            <Select
+              placeholder="Select Crop Type"
+              onChange={(e) => setCropType(e.target.value)}
+              focusBorderColor="green.400"
+              borderColor="gray.300"
+              _hover={{ borderColor: 'green.300' }}
+              borderRadius="md"
+              size="lg"
+            >
+              <option value="Wheat">Wheat</option>
+              <option value="Rice">Rice</option>
+              <option value="Maize">Maize</option>
+              <option value="Cotton">Cotton</option>
+              <option value="Barley">Barley</option>
+              <option value="Sugarcane">Sugarcane</option>
+              <option value="Soybean">Soybean</option>
+              <option value="Tomato">Tomato</option>
+            </Select>
           </FormControl>
 
           {/* Temperature Input */}
@@ -179,48 +211,10 @@ const SoilTestForm = () => {
             />
           </FormControl>
 
-          {/* Soil Type Input */}
-          <FormControl>
-            <FormLabel>Soil Type</FormLabel>
-            <Select
-              placeholder="Select Soil Type"
-              onChange={(e) => setSoilType(e.target.value)}
-              focusBorderColor="green.400"
-              borderColor="gray.300"
-              _hover={{ borderColor: 'green.300' }}
-              borderRadius="md"
-              size="lg"
-            >
-              <option value="Sandy">Sandy</option>
-              <option value="Clayey">Clayey</option>
-              <option value="Loamy">Loamy</option>
-            </Select>
-          </FormControl>
-
-          {/* Crop Type Input */}
-          <FormControl>
-            <FormLabel>Crop Type</FormLabel>
-            <Select
-              placeholder="Select Crop Type"
-              onChange={(e) => setCropType(e.target.value)}
-              focusBorderColor="green.400"
-              borderColor="gray.300"
-              _hover={{ borderColor: 'green.300' }}
-              borderRadius="md"
-              size="lg"
-            >
-              <option value="Wheat">Wheat</option>
-              <option value="Rice">Rice</option>
-              <option value="Maize">Maize</option>
-              <option value="Cotton">Cotton</option>
-            </Select>
-          </FormControl>
-
           {/* Predict Button */}
           <Button
             onClick={handlePrediction}
             colorScheme="green"
-            isLoading={loading}
             size="lg"
             width="full"
             borderRadius="md"

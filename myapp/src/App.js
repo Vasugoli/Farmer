@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/mainpage';
 
 import MainPage from './pages/substianble/main';
+import FertilizerQuantityForm from './pages/quantity';
 
 import Idea1 from './pages/substianble/idea1';
 import Idea2 from './pages/substianble/idea2';
@@ -13,7 +14,7 @@ import LandingPage from './pages/landing/landing';
 import LanguageSwitcher from './Languageswitcher';
 import  { SignIn } from './pages/signin';
 import Water from './water';
-import DataOpti from './pages/dataopti';
+//import DataOpti from './pages/dataopti';
 import { SignUp } from './pages/signup';
 //import MachineLearningAnalysis from './pages/analysis';
 import ForgotPassword from './pages/updatepassword/forgot';
@@ -28,6 +29,7 @@ function App() {
         {/* <Route path="/soilhealth" element={<SoilDataForm />} /> */}
         { <Route path="/waterconservation" element={<Water />} />}
         <Route path="/machine-learning-analysis" element={<SoilTestForm />} />
+      
         <Route path="/home" element={<HomePage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/forgot" element={<ForgotPassword />} />
@@ -42,7 +44,7 @@ function App() {
         <Route path="/idea1" element={<Idea1 />} />
         <Route path="/idea2" element={<Idea2 />} />
         <Route path="/idea3" element={<Idea3 />} />
-        <Route path="/data-driven-solution" element={<DataOpti />} />
+        <Route path="/data-driven-solution" element={<FertilizerQuantityForm />} />
       </Routes>
     </Router>
   );
