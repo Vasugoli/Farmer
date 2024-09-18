@@ -7,6 +7,7 @@ import MainPage from './pages/substianble/main';
 import Idea1 from './pages/substianble/idea1';
 import Idea2 from './pages/substianble/idea2';
 import Idea3 from './pages/substianble/idea3';
+import HelpPage from './help';
 import SoilTestForm from './pages/soildata';
 import LandingPage from './pages/landing/landing';
 import LanguageSwitcher from './Languageswitcher';
@@ -17,6 +18,7 @@ import { SignUp } from './pages/signup';
 //import MachineLearningAnalysis from './pages/analysis';
 import ForgotPassword from './pages/updatepassword/forgot';
 //import FertilizerRecommendation from './pages/recomm';
+import About from './about';
 import Income from './pages/income';
 function App() {
   return (
@@ -30,8 +32,10 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/forgot" element={<ForgotPassword />} />
         <Route path="/crop-yield" element={<Income />} />
+        <Route path="/help" element={<HelpPage />} />
         <Route path="/sign-up" element={<SignUp />} />
         {/* <Route path="/ferti" element={<FertilizerRecommendation />} /> */}
+        <Route path="/about" element={<About />} />
         <Route path="/language" element={<LanguageSwitcher />} />
         
         <Route path="/sustainable-agriculture" element={<MainPage />} />

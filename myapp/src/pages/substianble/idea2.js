@@ -1,46 +1,149 @@
 import React from 'react';
+import { Box, Heading, Image, Text, List, ListItem, Button, VStack, HStack, Container, SimpleGrid } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+
+const MotionBox = motion(Box);
 
 function Idea2() {
   return (
-    <div style={styles.container}>
-      <h1 style={styles.header}>Organic Fertilizers</h1>
-      <img src="https://cdn.pixabay.com/photo/2017/07/01/23/47/compost-2467798_1280.jpg" alt="Organic Fertilizers" style={styles.image} />
-      <p style={styles.paragraph}>
-        Organic fertilizers, such as compost, manure, and other natural substances, are derived from plant or animal matter. They are free from synthetic chemicals and enhance the biological activity in the soil. 
-        Organic fertilizers improve soil structure, increase nutrient availability, and reduce environmental pollution compared to chemical fertilizers.
-      </p>
-      <button style={styles.button} onClick={() => window.history.back()}>Go Back</button>
-    </div>
+    <Container maxW="container.xl" p={4}>
+      <VStack spacing={6} align="stretch">
+        <MotionBox
+          as="section"
+          p={6}
+          borderRadius="lg"
+          boxShadow="md"
+          bg="white"
+          textAlign="center"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <Heading size="2xl" color="green.600" mb={4}>Organic Fertilizers</Heading>
+          <Image
+            src="https://th.bing.com/th/id/OIP.j289Hj9LeYOi-CNm3oRDawHaEo?rs=1&pid=ImgDetMain"
+            alt="Organic Fertilizers"
+            borderRadius="md"
+            boxShadow="md"
+            mb={4}
+            maxW="100%"
+            mx="auto"
+          />
+          <Text fontSize="lg" mb={4}>
+            Organic fertilizers, such as compost, manure, and other natural substances, are derived from plant or animal matter.
+            They enhance the biological activity in the soil, improve soil structure, increase nutrient availability, and reduce environmental pollution compared to chemical fertilizers.
+          </Text>
+        </MotionBox>
+
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
+          <Box
+            p={6}
+            borderRadius="lg"
+            boxShadow="md"
+            bg="gray.50"
+          >
+            <Heading size="lg" color="green.600" mb={4}>How to Make Organic Fertilizers</Heading>
+            <Text fontSize="lg" mb={4}>
+              <strong>1. Compost:</strong> Collect kitchen scraps (fruits, vegetables) and yard waste (leaves, grass clippings).
+              Layer them in a compost bin, turning regularly to aerate and speed up decomposition. After a few months, the compost is ready to use.
+            </Text>
+            <Image
+              src="https://th.bing.com/th/id/OIP.-O_5oWepNvaV3KBcnYRY4gHaHa?rs=1&pid=ImgDetMain"
+              alt="Composting Process"
+              borderRadius="md"
+              boxShadow="md"
+              mb={4}
+              maxW="100%"
+              mx="auto"
+            />
+            <Text fontSize="lg" mb={4}>
+              <strong>2. Manure:</strong> Gather aged manure from herbivores (e.g., cows, horses) and apply it in gardens.
+              Ensure it's well-composted to prevent pathogens and odor.
+            </Text>
+            <Image
+              src="https://th.bing.com/th/id/OIP.aUVjH3IBdibglHXeM7GoLwHaEU?rs=1&pid=ImgDetMain"
+              alt="Manure"
+              borderRadius="md"
+              boxShadow="md"
+              mb={4}
+              maxW="100%"
+              mx="auto"
+            />
+          </Box>
+
+          <Box
+            p={6}
+            borderRadius="lg"
+            boxShadow="md"
+            bg="gray.50"
+          >
+            <Heading size="lg" color="green.600" mb={4}>Uses of Organic Fertilizers</Heading>
+            <Image
+              src="https://th.bing.com/th/id/R.9decdb4798d66a31d3d3c77c321c9a61?rik=d%2fWvZpmguwgBpg&riu=http%3a%2f%2fwww.greenfarmlive.com%2fassets%2fimages%2forganic-fertilizer.jpg&ehk=HgVP5SHn7cGfJG%2b%2fCWlqEPsHpqlWLAqTF%2bKytJ82R60%3d&risl=&pid=ImgRaw&r=0"
+              alt="Uses of Organic Fertilizers"
+              borderRadius="md"
+              boxShadow="md"
+              mb={4}
+              maxW="100%"
+              mx="auto"
+            />
+            <List spacing={3} fontSize="lg">
+              <ListItem>Improves soil structure and fertility.</ListItem>
+              <ListItem>Enhances microbial activity in the soil.</ListItem>
+              <ListItem>Increases water retention capacity.</ListItem>
+              <ListItem>Reduces chemical runoff into waterways.</ListItem>
+              <ListItem>Provides slow-release nutrients for long-term soil health.</ListItem>
+              <ListItem>Supports sustainable farming practices and reduces dependency on chemical fertilizers.</ListItem>
+            </List>
+          </Box>
+        </SimpleGrid>
+
+        <Box
+          p={6}
+          borderRadius="lg"
+          boxShadow="md"
+          bg="gray.50"
+        >
+          <Heading size="lg" color="green.600" mb={4}>Watch These Videos</Heading>
+          <VStack spacing={6}>
+            <HStack spacing={4} align="center" justify="center" mb={4}>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/_K25WjjCBuw?si=EiGBZhS5zMShhO3T"
+                title="How to Make Compost"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+              <Text fontSize="md" maxW="300px">How to Make Compost</Text>
+            </HStack>
+            <HStack spacing={4} align="center" justify="center">
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/A3GpilPuQTs?si=VVCNhZKmWwGf1gRW"
+                title="Using Organic Fertilizers"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+              <Text fontSize="md" maxW="300px">Using Organic Fertilizers Effectively</Text>
+            </HStack>
+          </VStack>
+        </Box>
+
+        <Button
+          colorScheme="green"
+          variant="solid"
+          size="lg"
+          onClick={() => window.history.back()}
+        >
+          Go Back
+        </Button>
+      </VStack>
+    </Container>
   );
 }
-
-const styles = {
-  container: { padding: '20px', textAlign: 'center' },
-  header: { fontSize: '2em', color: '#2e8b57', animation: 'slideDown 1s ease-in' },
-  image: { width: '100%', maxWidth: '500px', marginTop: '20px', animation: 'fadeIn 1.5s' },
-  paragraph: { fontSize: '1.2em', marginTop: '20px', animation: 'fadeInUp 1.5s' },
-  button: {
-    padding: '10px 20px',
-    backgroundColor: '#2e8b57',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    marginTop: '20px',
-    animation: 'fadeIn 1.5s'
-  },
-  '@keyframes fadeIn': {
-    '0%': { opacity: 0 },
-    '100%': { opacity: 1 }
-  },
-  '@keyframes slideDown': {
-    '0%': { transform: 'translateY(-20px)', opacity: 0 },
-    '100%': { transform: 'translateY(0)', opacity: 1 }
-  },
-  '@keyframes fadeInUp': {
-    '0%': { transform: 'translateY(20px)', opacity: 0 },
-    '100%': { transform: 'translateY(0)', opacity: 1 }
-  },
-};
 
 export default Idea2;

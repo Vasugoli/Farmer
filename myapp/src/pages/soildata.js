@@ -1,120 +1,266 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import {
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Select,
-  Button,
-  NumberInput,
-  NumberInputField,
-  Heading,
-  useToast
+  Box, Button, Input, VStack, FormControl, FormLabel, Select, Text, Heading, Alert, AlertIcon,
 } from '@chakra-ui/react';
-import { FaTemperatureHigh, FaTint } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import axios from 'axios';
+
+// Animation for background elements
+const MotionBox = motion(Box);
+const MotionText = motion(Text);
 
 const SoilTestForm = () => {
-  const [formData, setFormData] = useState({
-    temperature: '',
-    humidity: '',
-    moisture: '',
-    soilType: 'clay',
-    cropType: ''
-  });
+  const [nitrogen, setNitrogen] = useState('');
+  const [phosphorus, setPhosphorus] = useState('');
+  const [potassium, setPotassium] = useState('');
+  const [soilType, setSoilType] = useState('');
+  const [cropType, setCropType] = useState('');
+  const [temperature, setTemperature] = useState('');
+  const [humidity, setHumidity] = useState('');
+  const [moisture, setMoisture] = useState('');
+  const [predictedFertilizer, setPredictedFertilizer] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const [result, setResult] = useState(null);
-  const toast = useToast();
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handlePrediction = async () => {
+    setLoading(true);
+    setError('');
+    setPredictedFertilizer('');
     try {
-      const response = await axios.post('http://localhost:5000/api/soil-analysis', formData);
-      setResult(response.data);
-      toast({
-        title: 'Analysis Successful.',
-        description: "We've received your input and processed the data.",
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
+      const response = await axios.post('http://localhost:5001/api/predict', {
+        Nitrogen: nitrogen,
+        Phosphorous: phosphorus,
+        Potassium: potassium,
+        'Soil Type': soilType,
+        'Crop Type': cropType,
+        Temperature: temperature,
+        Humidity: humidity,
+        Moisture: moisture,
       });
-    } catch (error) {
-      console.error('Error fetching ML results:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to fetch the analysis results.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
+      setPredictedFertilizer(response.data.predicted_fertilizer);
+    } catch (err) {
+      console.error(err);
+      setError('Error during prediction!');
     }
+    setLoading(false);
   };
 
   return (
-    <Box maxW="500px" mx="auto" p="5" style={{ backgroundColor: '#f0f4f8', borderRadius: '10px' }}>
-      <Heading as="h2" size="lg" mb="5" textAlign="center">
-        Soil Test Input
-      </Heading>
-      <form onSubmit={handleSubmit}>
-        <FormControl mb="4">
-          <FormLabel>
-            Temperature (°C) <FaTemperatureHigh />
-          </FormLabel>
-          <NumberInput min={20} max={50} step={1}>
-            <NumberInputField name="temperature" value={formData.temperature} onChange={handleChange} required />
-          </NumberInput>
-        </FormControl>
+    <Box
+      position="relative"
+      minHeight="100vh"
+      background="linear-gradient(135deg, #e0f7fa, #fff3e0)"
+      p={8}
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      {/* Background Moving Elements */}
+      <MotionBox
+        position="absolute"
+        top="-50px"
+        left="-50px"
+        boxSize="200px"
+        backgroundColor="rgba(255, 255, 255, 0.2)"
+        borderRadius="50%"
+        animate={{ y: [0, 50, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <MotionBox
+        position="absolute"
+        bottom="-50px"
+        right="-50px"
+        boxSize="200px"
+        backgroundColor="rgba(255, 255, 255, 0.2)"
+        borderRadius="50%"
+        animate={{ y: [0, -50, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-        <FormControl mb="4">
-          <FormLabel>
-            Humidity (%) <FaTint />
-          </FormLabel>
-          <Input type="number" name="humidity" value={formData.humidity} onChange={handleChange} required />
-        </FormControl>
+      {/* Form Container */}
+      <Box
+        bg="white"
+        p={8}
+        borderRadius="md"
+        boxShadow="lg"
+        maxW="lg"
+        width="100%"
+      >
+        <VStack spacing={6}>
+          <Heading size="lg" color="green.600">Fertilizer Prediction</Heading>
 
-        <FormControl mb="4">
-          <FormLabel>
-            Moisture (%)
-          </FormLabel>
-          <Input type="number" name="moisture" value={formData.moisture} onChange={handleChange} required />
-        </FormControl>
+          {/* Nitrogen Input */}
+          <FormControl>
+            <FormLabel>Nitrogen</FormLabel>
+            <Input
+              value={nitrogen}
+              onChange={(e) => setNitrogen(e.target.value)}
+              placeholder="Enter Nitrogen level"
+              focusBorderColor="green.400"
+              borderColor="gray.300"
+              _hover={{ borderColor: 'green.300' }}
+              borderRadius="md"
+              size="lg"
+            />
+          </FormControl>
 
-        <FormControl mb="4">
-          <FormLabel>Soil Type</FormLabel>
-          <Select name="soilType" value={formData.soilType} onChange={handleChange}>
-            <option value="clay">Clay</option>
-            <option value="sandy">Sandy</option>
-            <option value="loamy">Loamy</option>
-            <option value="black">Black</option>
-            <option value="red">Red</option>
-          </Select>
-        </FormControl>
+          {/* Phosphorous Input */}
+          <FormControl>
+            <FormLabel>Phosphorous</FormLabel>
+            <Input
+              value={phosphorus}
+              onChange={(e) => setPhosphorus(e.target.value)}
+              placeholder="Enter Phosphorous level"
+              focusBorderColor="green.400"
+              borderColor="gray.300"
+              _hover={{ borderColor: 'green.300' }}
+              borderRadius="md"
+              size="lg"
+            />
+          </FormControl>
 
-        <FormControl mb="4">
-          <FormLabel>Crop Type</FormLabel>
-          <NumberInput min={1} max={10} step={1}>
-            <NumberInputField name="cropType" value={formData.cropType} onChange={handleChange} required />
-          </NumberInput>
-          <p style={{ fontSize: '12px', color: '#666', marginTop: '5px' }}>
-            Enter a number from 1 to 10 (1: Cotton, 2: Groundnuts, 3: Maize, 4: Millets, 5: Oilseeds, 6: Paddy, 7: Pulses, 8: Sugarcane, 9: Tobacco, 10: Wheat)
-          </p>
-        </FormControl>
+          {/* Potassium Input */}
+          <FormControl>
+            <FormLabel>Potassium</FormLabel>
+            <Input
+              value={potassium}
+              onChange={(e) => setPotassium(e.target.value)}
+              placeholder="Enter Potassium level"
+              focusBorderColor="green.400"
+              borderColor="gray.300"
+              _hover={{ borderColor: 'green.300' }}
+              borderRadius="md"
+              size="lg"
+            />
+          </FormControl>
 
-        <Button colorScheme="blue" type="submit" width="100%" mt="4">
-          Submit
-        </Button>
-      </form>
+          {/* Temperature Input */}
+          <FormControl>
+            <FormLabel>Temperature (°C)</FormLabel>
+            <Input
+              value={temperature}
+              onChange={(e) => setTemperature(e.target.value)}
+              placeholder="Enter Temperature"
+              focusBorderColor="green.400"
+              borderColor="gray.300"
+              _hover={{ borderColor: 'green.300' }}
+              borderRadius="md"
+              size="lg"
+            />
+          </FormControl>
 
-      {result && (
-        <Box mt="6" p="4" style={{ backgroundColor: '#e0ffe0', borderRadius: '8px' }}>
-          <Heading as="h3" size="md" mb="3">Fertilizer Recommendation</Heading>
-          <p>{result.recommendation}</p>
-        </Box>
-      )}
+          {/* Humidity Input */}
+          <FormControl>
+            <FormLabel>Humidity (%)</FormLabel>
+            <Input
+              value={humidity}
+              onChange={(e) => setHumidity(e.target.value)}
+              placeholder="Enter Humidity level"
+              focusBorderColor="green.400"
+              borderColor="gray.300"
+              _hover={{ borderColor: 'green.300' }}
+              borderRadius="md"
+              size="lg"
+            />
+          </FormControl>
+
+          {/* Moisture Input */}
+          <FormControl>
+            <FormLabel>Moisture (%)</FormLabel>
+            <Input
+              value={moisture}
+              onChange={(e) => setMoisture(e.target.value)}
+              placeholder="Enter Moisture level"
+              focusBorderColor="green.400"
+              borderColor="gray.300"
+              _hover={{ borderColor: 'green.300' }}
+              borderRadius="md"
+              size="lg"
+            />
+          </FormControl>
+
+          {/* Soil Type Input */}
+          <FormControl>
+            <FormLabel>Soil Type</FormLabel>
+            <Select
+              placeholder="Select Soil Type"
+              onChange={(e) => setSoilType(e.target.value)}
+              focusBorderColor="green.400"
+              borderColor="gray.300"
+              _hover={{ borderColor: 'green.300' }}
+              borderRadius="md"
+              size="lg"
+            >
+              <option value="Sandy">Sandy</option>
+              <option value="Clayey">Clayey</option>
+              <option value="Loamy">Loamy</option>
+            </Select>
+          </FormControl>
+
+          {/* Crop Type Input */}
+          <FormControl>
+            <FormLabel>Crop Type</FormLabel>
+            <Select
+              placeholder="Select Crop Type"
+              onChange={(e) => setCropType(e.target.value)}
+              focusBorderColor="green.400"
+              borderColor="gray.300"
+              _hover={{ borderColor: 'green.300' }}
+              borderRadius="md"
+              size="lg"
+            >
+              <option value="Wheat">Wheat</option>
+              <option value="Rice">Rice</option>
+              <option value="Maize">Maize</option>
+              <option value="Cotton">Cotton</option>
+            </Select>
+          </FormControl>
+
+          {/* Predict Button */}
+          <Button
+            onClick={handlePrediction}
+            colorScheme="green"
+            isLoading={loading}
+            size="lg"
+            width="full"
+            borderRadius="md"
+          >
+            Predict Fertilizer
+          </Button>
+
+          {/* Error Message */}
+          {error && (
+            <Alert status="error" borderRadius="md">
+              <AlertIcon />
+              {error}
+            </Alert>
+          )}
+
+          {/* Predicted Fertilizer Display */}
+          {predictedFertilizer && (
+            <MotionBox
+              p={6}
+              mt={4}
+              bg="teal.100"
+              borderRadius="md"
+              boxShadow="md"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              width="100%"
+            >
+              <MotionText
+                fontSize="xl"
+                color="teal.700"
+                textAlign="center"
+                fontWeight="bold"
+              >
+                Predicted Fertilizer: {predictedFertilizer}
+              </MotionText>
+            </MotionBox>
+          )}
+        </VStack>
+      </Box>
     </Box>
   );
 };

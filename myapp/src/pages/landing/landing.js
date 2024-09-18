@@ -5,6 +5,9 @@ import {
 } from '@chakra-ui/react';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { useTranslation } from 'react-i18next'; // Import translation hook
+import './landing.css';
+
+
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -65,27 +68,31 @@ const LandingPage = () => {
       </Container>
 
       {/* Features Section */}
-      <Box bg="gray.100" py={16} px={6}>
-        <Container maxW="container.lg">
-          <VStack spacing={8} align="center">
-            <Heading as="h2" size="xl">{t("landing.featuresTitle")}</Heading>
-            <VStack spacing={8}>
-              <Box p={6} bg="white" shadow="md" borderRadius="md" maxW="300px" w="full">
-                <Heading as="h3" size="lg" mb={4}>{t("landing.feature1.title")}</Heading>
-                <Text>{t("landing.feature1.description")}</Text>
-              </Box>
-              <Box p={6} bg="white" shadow="md" borderRadius="md" maxW="300px" w="full">
-                <Heading as="h3" size="lg" mb={4}>{t("landing.feature2.title")}</Heading>
-                <Text>{t("landing.feature2.description")}</Text>
-              </Box>
-              <Box p={6} bg="white" shadow="md" borderRadius="md" maxW="300px" w="full">
-                <Heading as="h3" size="lg" mb={4}>{t("landing.feature3.title")}</Heading>
-                <Text>{t("landing.feature3.description")}</Text>
-              </Box>
-            </VStack>
-          </VStack>
-        </Container>
+<Box bg="gray.100" py={16} px={6}>
+  <Container maxW="container.lg">
+    <VStack spacing={8} align="center">
+      <Heading as="h2" size="xl">{t("landing.featuresTitle")}</Heading>
+      <Box className="features-grid">
+        <Box className="feature-item">
+          <img src="assets/image1.png" alt="Feature 1" />
+          <Heading as="h3" size="lg" mb={4}>{t("landing.feature1.title")}</Heading>
+          <Text>{t("landing.feature1.description")}</Text>
+        </Box>
+        <Box className="feature-item">
+          <img src="assets/image2.png" alt="Feature 2" />
+          <Heading as="h3" size="lg" mb={4}>{t("landing.feature2.title")}</Heading>
+          <Text>{t("landing.feature2.description")}</Text>
+        </Box>
+        <Box className="feature-item">
+          <img src="assets/image3.png" alt="Feature 3" />
+          <Heading as="h3" size="lg" mb={4}>{t("landing.feature3.title")}</Heading>
+          <Text>{t("landing.feature3.description")}</Text>
+        </Box>
       </Box>
+    </VStack>
+  </Container>
+</Box>
+
 
       {/* Contact Section */}
       <Container maxW="container.md" py={16} px={6}>
