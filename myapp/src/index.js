@@ -13,7 +13,6 @@ root.render(
       <LanguageSwitcher />
       <App />
     </ChakraProvider>
-   
   </React.StrictMode>
 );
 

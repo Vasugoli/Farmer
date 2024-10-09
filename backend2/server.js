@@ -55,6 +55,17 @@ app.post('/api/predict', (req, res) => {
   });
 });
 
+//change
+const bodyParser = require('body-parser');
+const predictRoutes = require('./routes/predict');
+
+// Middleware
+app.use(bodyParser.json());
+
+// Routes
+app.use('/api', predictRoutes);
+
+// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

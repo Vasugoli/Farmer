@@ -101,7 +101,7 @@ const HomePage = () => {
         justifyContent="space-between"
         alignItems="center"
         padding="1rem 2rem"
-        background="linear-gradient(90deg, #319795, #2c5282)"
+        background="linear-gradient(90deg,#319795, #2c5282)"
         color="white"
         boxShadow="lg"
         position="sticky"
